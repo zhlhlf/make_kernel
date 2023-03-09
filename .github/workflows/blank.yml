@@ -82,8 +82,9 @@ jobs:
 
     - name: Build Kernel-SU
       run: |
-        curl -LSs "https://raw.github.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+        curl -LSs "https://raw.github.com/tiann/KernelSU/main/kernel/setup.sh" | bash -        
         export PATH=$(pwd)/clang/bin/:$PATH
+        cd android-kernel               
         make $KERNEL_CMDLINE ${{ github.event.inputs.KERNEL_DEFCONFIG }} CC="ccache clang"
         make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
         cp out/arch/arm64/boot/Image.gz AnyKernel3
